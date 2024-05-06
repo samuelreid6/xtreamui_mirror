@@ -39,16 +39,18 @@ def getVersion():
     except: return ""
 
 def printc(rText, rColour=col.OKBLUE, rPadding=0):
-    print "%s ┌──────────────────────────────────────────┐ %s" % (rColour, col.ENDC)
-    for i in range(rPadding): print "%s │                                          │ %s" % (rColour, col.ENDC)
-    print "%s │ %s%s%s │ %s" % (rColour, " "*(20-(len(rText)/2)), rText, " "*(40-(20-(len(rText)/2))-len(rText)), col.ENDC)
-    for i in range(rPadding): print "%s │                                          │ %s" % (rColour, col.ENDC)
-    print "%s └──────────────────────────────────────────┘ %s" % (rColour, col.ENDC)
-    print " "
+   # The above code seems to be attempting to print a string with some formatting using Python.
+   # However, there are syntax errors in the code.
+    print ("%s ┌──────────────────────────────────────────┐ %s" % (rColour, col.ENDC))
+    for i in range(rPadding): print ("%s │                                          │ %s" % (rColour, col.ENDC))
+    print ("%s │ %s%s%s │ %s" % (rColour, " "*(20-(len(rText)/2)), rText, " "*(40-(20-(len(rText)/2))-len(rText)), col.ENDC))
+    for i in range(rPadding): print ("%s │                                          │ %s" % (rColour, col.ENDC))
+    print ("%s └──────────────────────────────────────────┘ %s" % (rColour, col.ENDC))
+    print (" ")
 
 def prepare(rType="MAIN"):
     global rPackages
-    if rType <> "MAIN": rPackages = rPackages[:-3]
+    if rType != "MAIN": rPackages = rPackages[:-3]
     printc("Preparing Installation")
     for rFile in ["/var/lib/dpkg/lock-frontend", "/var/cache/apt/archives/lock", "/var/lib/dpkg/lock"]:
         try: os.remove(rFile)
@@ -139,7 +141,7 @@ def mysql(rUsername, rPassword):
     printc("Enter MySQL Root Password:", col.WARNING)
     for i in range(5):
         rMySQLRoot = raw_input("  ")
-        print " "
+        print (" ")
         if len(rMySQLRoot) > 0: rExtra = " -p%s" % rMySQLRoot
         else: rExtra = ""
         printc("Drop existing & create database? Y/N", col.WARNING)
@@ -241,17 +243,17 @@ if __name__ == "__main__":
         sys.exit(1)
 
     printc("Xtream UI - Installer Mirror", col.OKGREEN, 2)
-    print "%s │ Check out the mirror repo: https://bitbucket.org/emre1393/xtreamui_mirror %s" % (col.OKGREEN, col.ENDC)
-    print " "
+    print ("%s │ Check out the mirror repo: https://bitbucket.org/emre1393/xtreamui_mirror %s" % (col.OKGREEN, col.ENDC))
+    print (" ")
     rType = raw_input("  Installation Type [MAIN, LB]: ")
-    print " "
+    print (" ")
     if rType.upper() in ["MAIN", "LB"]:
         if rType.upper() == "LB":
             rHost = raw_input("  Main Server IP Address: ")
             rPassword = raw_input("  MySQL Password: ")
             try: rServerID = int(raw_input("  Load Balancer Server ID: "))
             except: rServerID = -1
-            print " "
+            print (" ")
         else:
             rHost = "127.0.0.1"
             rPassword = generate()
@@ -264,7 +266,7 @@ if __name__ == "__main__":
         if len(rHost) > 0 and len(rPassword) > 0 and rServerID > -1:
             printc("Start installation? Y/N", col.WARNING)
             if raw_input("  ").upper() == "Y":
-                print " "
+                print (" ")
                 rRet = prepare(rType.upper())
                 if not install(rType.upper()): sys.exit(1)
                 if rType.upper() == "MAIN":
